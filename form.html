@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badagaon Cricket Tournament</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Badagaon Cricket Tournament</h1>
+    <div class="main">
+        <button onclick="home()">Home</button>
+        <hr>
+        <form id="registrationForm">
+            <input type="text" name="teamName" placeholder="Team Name" required>
+            <input type="text" name="captainName" placeholder="Captain Name" required>
+            <input type="text" name="viceCaptainName" placeholder="Vice Captain Name" required>
+            <input type="text" name="contactNumber" placeholder="Contact Number" required>
+            <input type="text" name="altContactNumber" placeholder="Alternate Contact Number">
+            <input type="text" name="address" placeholder="Address" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    <footer align="center">
+        Made by Nikhil Gugad | <a href="tel:9571169158"><button>Contact Developer</button></a>
+    </footer>
+
+    <script>
+        function home() {
+            window.location.href = "index.html";
+        }
+
+        document.getElementById("registrationForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const data = {
+                teamName: form.teamName.value,
+                captainName: form.captainName.value,
+                viceCaptainName: form.viceCaptainName.value,
+                contactNumber: form.contactNumber.value,
+                altContactNumber: form.altContactNumber.value,
+                address: form.address.value
+            };
+
+            fetch("https://script.google.com/macros/s/AKfycbzTEd8xo4nXJKmgCFOfOHQi_lchuK2NatgPUb0YyYDibPCyCHaJAAuYaFt7olL_eCrAyg/exec", {
+                method: "POST",
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(message => {
+                alert("Successfully submitted!");
+                form.reset();
+            })
+            .catch(error => {
+                alert("Error submitting form. Please try again.");
+                console.error(error);
+            });
+        });
+    </script>
+</body>
+</html>
